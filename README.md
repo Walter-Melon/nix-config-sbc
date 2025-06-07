@@ -1,4 +1,5 @@
-This repository is home to the nix code that builds my systems for Some Single Board Computers(SBCs)
+This repository is home to the nix code that builds my systems for Some Single Board Computers(SBCs).
+Once again heavily based on [https://github.com/ryan4yin/nixos-config-sbc](nixos-config-sbc) repo.
 
 See [./hosts](./hosts) for details of each host.
 
@@ -11,3 +12,4 @@ feels like a good idea to create separate flakes for SBCs and have them updated 
 ## References
 
 - [walter-melon/nix-config](https://github.com/walter-melon/nix-config/)
+- [ryan4yin/nixos-config-sbc](https://github.com/ryan4yin/nixos-config-sbc/)
