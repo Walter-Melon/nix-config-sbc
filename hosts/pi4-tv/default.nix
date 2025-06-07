@@ -20,7 +20,7 @@
     # `disko.devices.disk.main.device` is set correctly!
     ./disko-usb-btrfs.nix
 
-    ../modules/system.nix
+    ../../modules/system.nix
     ./networking.nix
   ];
 

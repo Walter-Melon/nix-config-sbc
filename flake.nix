@@ -55,7 +55,7 @@
         specialArgs = {inherit username;};
       in
         nixos-raspberrypi.lib.nixosSystem {
-          inherit specialArgs;
+          specialArgs = inputs;
 
           modules = [
             ./hosts/pi4-tv
