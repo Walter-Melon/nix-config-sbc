@@ -10,7 +10,7 @@
 {
   imports = [
     ./boot.nix
-    ../../system.nix
+    ../../modules/system.nix
     ./networking.nix
   ];
 
