@@ -15,4 +15,10 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINwzVqGPzhMVawuS4KorJI0QIkYaTg8ItV+djB2uiYxT tv@pi4-tv"
     ];
   };
+
+  # VSCode server needs to be enabled for each user
+  systemd.user.services.auto-fix-vscode-server.service = {
+    enable = true;
+    unitConfig.ConditionUser = username;
+  };
 }

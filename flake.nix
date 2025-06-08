@@ -37,6 +37,9 @@
       url = "github:nix-community/nixos-anywhere";
     };
 
+    # needed to connect via ssh over VSCode
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
+
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -48,7 +51,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixos-raspberrypi, disko, nixos-anywhere, home-manager, ... }: {
+  outputs = inputs @ { self, nixpkgs, nixos-raspberrypi, disko, nixos-anywhere, home-manager, vscode-server, ... }: {
     nixosConfigurations = {
       pi4-tv = let
         username = "tv";
@@ -61,6 +64,11 @@
             ./hosts/pi4-tv
             ./users/${username}/nixos.nix
 
+            vscode-server.nixosModules.default
+            ({ config, pkgs, ... }: {
+              services.vscode-server.enable = true;
+            })
+
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -69,7 +77,7 @@
               home-manager.extraSpecialArgs = inputs // specialArgs;
               home-manager.users.${username} = import ./users/${username}/home.nix;
             }
-        ];
+          ];
       };
     };
   };
