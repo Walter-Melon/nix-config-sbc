@@ -26,8 +26,8 @@
   time.timeZone = "Europe/Berlin";
   
   # Select internationalisation properties.
-  services.xserver.layout = "de";
-  i18n.consoleUseXkbConfig = true;
+  services.xserver.xkb.layout = "de";
+  console.useXkbConfig = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
 

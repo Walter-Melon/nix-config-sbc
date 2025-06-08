@@ -1,7 +1,7 @@
 { config, lib, pkgs, nixos-raspberrypi, disko, username, ... }:
 
 {
-  users.users."${user}" = {
+  users.users."${username}" = {
     isNormalUser = true;
     extraGroups = [ 
       "wheel"
