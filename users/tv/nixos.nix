@@ -1,10 +1,9 @@
 { config, lib, pkgs, nixos-raspberrypi, disko, username, ... }:
 
 {
-  # Use less privileged tv user
-  users.users.tv = {
+  users.users."${user}" = {
     isNormalUser = true;
-    extraGroups = [
+    extraGroups = [ 
       "wheel"
       "networkmanager"
       "video"

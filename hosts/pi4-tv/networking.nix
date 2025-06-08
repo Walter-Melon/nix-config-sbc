@@ -1,33 +1,15 @@
 {...}:
 
-{
-  # This is mostly portions of safe network configuration defaults that
-  # nixos-images and srvos provide
-  networking.useNetworkd = true;
-
-  networking.hostName = "pi4-tv";
-
-  # This comment was lifted from `srvos`
-  # Do not take down the network for too long when upgrading,
-  # This also prevents failures of services that are restarted instead of stopped.
-  # It will use `systemctl restart` rather than stopping it with `systemctl stop`
-  # followed by a delayed `systemctl start`.
-  systemd.services = {
-    systemd-networkd.stopIfChanged = false;
-    # Services that are only restarted might be not able to resolve when resolved is stopped before
-    systemd-resolved.stopIfChanged = false;
-  };
-
-  # Use iwd instead of wpa_supplicant. It has a user friendly CLI
-  networking.wireless.enable = false;
-  networking.wireless.iwd = {
-    enable = true;
-    settings = {
-      Network = {
-        EnableIPv6 = true;
-        RoutePriorityOffset = 300;
-      };
-      Settings.AutoConnect = true;
-    };
+let
+  hostname = "pi4-tv";
+  interface = "wlan0";
+in {
+  networking = {
+    hostName = "pi4-tv";
+    # wireless = {
+    #   enable = true;
+    #   networks."${SSID}".psk = SSIDpassword;
+    #   interfaces = [ interface ];
+    # };
   };
 }

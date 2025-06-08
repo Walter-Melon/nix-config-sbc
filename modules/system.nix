@@ -50,12 +50,12 @@
   # mounting the storage in a different system.
   services.openssh = {
     enable = true;
-    settings = {
-      X11Forwarding = true;
-      PermitRootLogin = "no"; # disable root login
-      PasswordAuthentication = false; # disable password login
-    };
-    openFirewall = true;
+    # settings = {
+    #   X11Forwarding = true;
+    #   PermitRootLogin = "no"; # disable root login
+    #   PasswordAuthentication = false; # disable password login
+    # };
+    # openFirewall = true;
   };
 
   # Don't require sudo/root to `reboot` or `poweroff`.
