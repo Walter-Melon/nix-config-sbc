@@ -12,6 +12,14 @@
         super.makeModulesClosure (x // { allowMissing = true; });
     })
   ];
+  
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+  
+  environment.systemPackages = with pkgs; [
+    wget
+    curl
+    git
+  ];
 
   boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_rpi4;
   boot.supportedFilesystems = lib.mkForce [ "vfat" "btrfs" "tmpfs" ];
