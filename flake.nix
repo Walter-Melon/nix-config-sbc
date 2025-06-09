@@ -16,6 +16,10 @@
           specialArgs = { inherit inputs outputs; };
           modules = [ ./hosts/pi4-installer ];
         };
+        pi4-tv = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [ ./hosts/pi4-tv ];
+        };
       };
     };
 }
