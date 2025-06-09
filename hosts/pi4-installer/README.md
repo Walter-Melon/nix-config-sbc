@@ -10,9 +10,9 @@ Heavily based on [Installing headless NixOS on Raspberry Pi](https://blog.krishu
     - Clone repo and ``cd`` into it
     - Build the SD-Card Image
         ```sh
-        nix build .#nixosConfigurations.nixos-pi-installer.config.system.build.sdImage --show-trace -L -v
+        nix build .#nixosConfigurations.pi4-installer.config.system.build.sdImage --show-trace -L -v
         ```
-- Copy the created image to a folder on the windows host
+- Copy the created image found in ``./result/sd-image`` to a folder on the windows host
 - Flash a USB-Drive using Rufus
 
 ### Loading the image and partition
