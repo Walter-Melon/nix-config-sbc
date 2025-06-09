@@ -36,7 +36,7 @@
   console.useXkbConfig = true;
 
   services.openssh.enable = true;
-  security.sudo.wheelNeedsPassword = false;
+
   users.users.tv = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
