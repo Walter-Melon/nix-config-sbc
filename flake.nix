@@ -29,7 +29,6 @@
         # Configuration for the TV
         pi4-tv = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
-          pkgs = nixpkgs.legacyPackages.aarch64-linux;
 
           modules = [
             ./hosts/pi4-tv
@@ -41,15 +40,6 @@
 
               home-manager.extraSpecialArgs = inputs // specialArgs;
               home-manager.users.tv = import ./users/tv/home.nix;
-            }
-
-            {
-              wayland.windowManager.hyprland = {
-                enable = true;
-                # set the flake package
-                package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-                portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-              };
             }
 
             # VSCode server hack
