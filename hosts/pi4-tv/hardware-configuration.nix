@@ -27,4 +27,6 @@
     };
 
   swapDevices = [{ device = "/swap/swapfile"; }];
+
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
