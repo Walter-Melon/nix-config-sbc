@@ -1,27 +1,49 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-# Raspberry Pi specific options are documented on the nixos-raspberrypi repository:
-# https://github.com/nvmd/nixos-raspberrypi
-
-{ config, lib, pkgs, username, ... }:
+{ lib, inputs, pkgs, ... }:
 
 {
   imports = [
-    ./boot.nix
-    ../../modules/system.nix
-    ./networking.nix
+    inputs.nixos-hardware.nixosModules.raspberry-pi-4
+    ./hardware-configuration
   ];
 
-  hardware.enableRedistributableFirmware = true;
-  environment.systemPackages = with pkgs; [ neofetch ];
+  nixpkgs.overlays = [
+    (final: super: {
+      makeModulesClosure = x:
+        super.makeModulesClosure (x // { allowMissing = true; });
+    })
+  ];
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  nix.settings.trusted-users = [ "tv" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    libraspberrypi
+    wget
+    curl
+    git
+  ];
+
+  networking.hostName = "pi4-tv";
+  networking.networkmanager.wifi.powersave = false;
+
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_rpi4;
+  boot.supportedFilesystems = lib.mkForce [ "vfat" "btrfs" "tmpfs" ];
+
+  time.timeZone = "Europe/Berlin";
+  services.xserver.xkb.layout = "de";
+  console.useXkbConfig = true;
+
+  services.openssh.enable = true;
+  security.sudo.wheelNeedsPassword = false;
+  users.users.tv = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINwzVqGPzhMVawuS4KorJI0QIkYaTg8ItV+djB2uiYxT tv@pi4-tv"
+    ];
+  };
+
+  system.stateVersion = "25.05";
 }
