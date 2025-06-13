@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     
     hyprland.url = "github:hyprwm/Hyprland";
@@ -28,6 +28,7 @@
 
         # Configuration for the TV
         pi4-tv = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
           specialArgs = { inherit inputs outputs; };
 
           modules = [

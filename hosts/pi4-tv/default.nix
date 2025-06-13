@@ -3,8 +3,15 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
-    ./hardware-configuration.nix
+    # Currently disabled for hardware config from nix.dev
+    #./hardware-configuration.nix
   ];
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/NIXOS_SD";
+    fsType = "ext4";
+    options = [ "noatime" ];
+  };
 
   nixpkgs.overlays = [
     (final: super: {
@@ -35,7 +42,7 @@
   networking.networkmanager.wifi.powersave = false;
 
   boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_rpi4;
-  boot.supportedFilesystems = lib.mkForce [ "vfat" "btrfs" "tmpfs" ];
+  #boot.supportedFilesystems = lib.mkForce [ "vfat" "btrfs" "tmpfs" ];
 
   time.timeZone = "Europe/Berlin";
   services.xserver.xkb.layout = "de";
@@ -55,13 +62,13 @@
     ];
   };
 
-  programs.hyprland = {
-    enable = true;
-    # set the flake package
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    # make sure to also set the portal package, so that they are in sync
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
+  #programs.hyprland = {
+  #  enable = true;
+  #  # set the flake package
+  #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  #  # make sure to also set the portal package, so that they are in sync
+  #  portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  #};
 
   system.stateVersion = "25.05";
 }
