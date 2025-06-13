@@ -38,6 +38,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
 
               #home-manager.extraSpecialArgs = inputs // specialArgs;
               home-manager.users.tv = import ./users/tv/home.nix;
