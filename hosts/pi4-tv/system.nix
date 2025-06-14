@@ -31,5 +31,4 @@
   };
   
   console.useXkbConfig = true;
-  console.keyMap = "de";
 }
