@@ -13,6 +13,7 @@
 
   environment.systemPackages = with pkgs; [
     libraspberrypi
+    raspberrypi-eeprom
     curl
     git
     htop

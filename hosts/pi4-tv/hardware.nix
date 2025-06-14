@@ -11,5 +11,12 @@
     options = [ "noatime" ];
   };
 
-  # hardware.raspberry-pi."4".fkms-3d.enable = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    raspberry-pi."4".fkms-3d.enable = true;
+    deviceTree = {
+      enable = true;
+      filter = "*rpi-4-*.dtb";
+    };
+  };
 }
