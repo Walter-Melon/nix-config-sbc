@@ -2,7 +2,10 @@
 
 {
   imports = [
+    ../../modules/home/chromium.nix
     ../../modules/home/hyprland
+    ../../modules/home/git.nix
+    ../../modules/home/kitty.nix
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -24,10 +27,4 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  programs.git = {
-    enable = true;
-    userName = "Walter-Melon";
-    userEmail = "mc.walter.melon@gmail.com";
-  };
 }

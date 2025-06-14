@@ -15,6 +15,7 @@
     libraspberrypi
     curl
     git
+    htop
   ];
 
   programs.hyprland = {

@@ -1,18 +1,13 @@
-{pkgs, ...}: 
+{ ... }: 
 
 {
-  wayland.windowManager.hyprland = {
-    enable = true;
-    package = pkgs.hyprland;
-    systemd = {
-      enable = true;
-      enableXdgAutostart = true;
-      variables = ["--all"];
-    };
-    xwayland = {
-      enable = true;
-    };
-    settings = {
-    };
-  };
+  imports = [
+    ./binds.nix
+    ./env.nix
+    # ./hypridle.nix
+    ./hyprland.nix
+    # ./hyprlock.nix
+    # ./pyprland.nix
+    # ./windowrules.nix
+  ];
 }
