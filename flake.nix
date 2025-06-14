@@ -7,14 +7,12 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    
-    hyprland.url = "github:hyprwm/Hyprland";
 
     # Needed to connect via ssh over VSCode
     vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, vscode-server, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       inherit (self) outputs;
     in
@@ -29,26 +27,15 @@
         # Configuration for the TV
         pi4-tv = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs; };
 
           modules = [
             ./hosts/pi4-tv
-            
-            home-manager.nixosModules.home-manager
+
+            home-manager.nixosModules.home-manager.users
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = "backup";
-
-              #home-manager.extraSpecialArgs = inputs // specialArgs;
-              home-manager.users.tv = import ./users/tv/home.nix;
+              tv = import ./users/tv/home.nix;
             }
-
-            # VSCode server hack
-            vscode-server.nixosModules.default
-            ({ config, pkgs, ... }: {
-              services.vscode-server.enable = true;
-            })
           ];
         };
       };
